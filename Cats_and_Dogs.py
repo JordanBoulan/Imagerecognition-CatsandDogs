@@ -1,9 +1,12 @@
 
 # coding: utf-8
 
-# I wanted to learn how machine learning is used to classify images (Image recognition). I was browsing Kaggle's past competitions and I found Dogs Vs Cats: Image Classification Competition (https://www.kaggle.com/c/dogs-vs-cats. Here one needs to classify whether image contain either a dog or a cat). Google search helped me to get started. Here are some of the references that I found quite useful: Yhat's Image Classification in Python and SciKit-image Tutorial. Data is available here. Here I am using first 501 dog images and first 501 cat images from train data folder. For testing I selected first 100 images from test data folder and manually labeled image for verifying.
+# I wanted to learn how machine learning is used to classify images (Image recognition).
+#  I was browsing Kaggle's past competitions and I found Dogs Vs Cats: Image Classification Competition (https://www.kaggle.com/c/dogs-vs-cats. 
+# Here one needs to classify whether image contain either a dog or a cat). Google search helped me to get started. Here are some of the references that I found quite useful: Yhat's Image Classification in Python and SciKit-image Tutorial. 
+# Data is available at https://www.kaggle.com/c/dogs-vs-cats. Here I am using first 501 dog images and first 501 cat images from train data folder. For testing I selected first 100 images from test data folder and manually labeled image for verifying.
 
-# In[1]:
+
 
 # Import necessary libraries
 import pandas as pd
@@ -12,21 +15,6 @@ from skimage import io
 from matplotlib import pyplot as plt
 get_ipython().magic('matplotlib inline')
 
-
-# In[2]:
-
-ls
-
-
-# In[3]:
-
-ls data
-
-
-# In[4]:
-
-# Define location of data
-import os
 train_directory = "./data/train/"
 test_directory = "./data/test/"
 
@@ -188,24 +176,19 @@ X = pca.fit_transform(data)
 X.size
 
 
-# In[ ]:
+# In[21]:
 
 print X[:, 0].size
 print X[:, 1].size
 
 
-# In[ ]:
 
-
-
-
-# In[ ]:
 
 # Create a dataframe
 np.sum(pca.explained_variance_ratio_)
 
 
-# In[ ]:
+# In[22]:
 
 # Here 2-Dimension PCA, captures 64.6% of the variation
 
@@ -222,14 +205,14 @@ test = np.array(test)
 test.shape
 
 
-# In[ ]:
+# In[23]:
 
 # Transforming test data
 testX = pca.fit_transform(test)
 testX.shape[1]
 
 
-# In[ ]:
+# In[24]:
 
 ## Logistic regression
 from sklearn.linear_model import LogisticRegression
@@ -238,14 +221,13 @@ clf = LogisticRegression( )
 logreg = clf.fit(X, y)
 
 
-# In[ ]:
+# In[25]:
 
 # Predict using Logistic Regression
-y_predict_logreg = logreg.predict(testX)
-y_predict_logreg 
 
 
-# In[21]:
+
+
 
 ## Logistic Regression: Accuracy
 
@@ -254,15 +236,13 @@ actual = pd.read_csv('ActualLabels.csv')
 actual['Labels'].head( ) 
 
 
-# In[22]:
+
 
 logreg_accuracy = np.where(y_predict_logreg == actual['Labels'], 1, 0).sum()/float(len(actual))
-logreg_accuracy 
 
 
 # 54% of the images were correctly classified using logistic regression (2D PCA)
-# 
-# 
+
 
 # In[23]:
 
@@ -277,20 +257,16 @@ knn.fit(X, y)
 
 # Predict using KNN classifier
 y_predict_knn = knn.predict(testX)
-y_predict_knn 
 
 
-# In[43]:
+# In[25]:
 
 ## KNN: Accuracy
 knn_accuracy = np.where(y_predict_knn == actual['Labels'], 1, 0).sum()/float(len(actual))
-knn_accuracy
 
 
-# 52% of the images were correctly classified using KNN (2D PCA). More sophisticated approaches, for example Support Vector Machines, Neural Networks and Others, would classify images with higher accuracy .
-# 
 
-# In[ ]:
+
 
 
 
